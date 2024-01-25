@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="./style/style.css">
+    <title>Fake it 'till you make it</title>
+</head>
+<body>
+    <div class="content-container">
+        <div class="left">
+            <h1 id="page-header">Fake it 'till you make it.</h1>
+            <footer id="me">~by <a href="https://viktorahmeti.me">Viktor Ahmeti</a></footer>
+            <div id="phone-component" class="phone">
+                <div class="phone-top">
+                    <div class="phone-top-left">Telecom</div>
+                    <div class="phone-top-right">
+                        <span class="material-symbols-outlined top-icon">signal_cellular_alt</span>
+                        <span class="material-symbols-outlined top-icon">wifi</span>
+                        <span class="material-symbols-outlined top-icon">battery_horiz_075</span>
+                    </div>
+                </div>
+                <div class="phone-date"></div>
+                <div class="phone-time"></div>
+                <div class="notifications-container">
+                    <div class="notifications-top">
+                        <span class="notifications-title">Notification Center</span>
+                        <span id="exit-fullscreen-button" class="translucent-true notifications-dismiss material-symbols-outlined">close</span>
+                    </div>
+                    <ul class="notifications-list"></ul>
+                </div>
+                <div class="phone-bottom">
+                    <span id="flashlight" class="translucent-true material-symbols-outlined bottom-icon">flashlight_on</span>
+                    <span id="camera" class="translucent-true material-symbols-outlined bottom-icon">photo_camera</span>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div>
+                <div class="apps-component-top">
+                    <h4 class="apps-component-title">Select App</h4>
+                    <button title="Add new App" id="add-new-app-button" class="add-new-button">+</button>
+                </div>
+                <div id="apps-component">
+                    <ul class="apps-component-list">
+
+                    </ul>
+                </div>
+            </div>
+            <div id="message-component">
+                <h4>Notification</h4>
+                <input placeholder="New message..." id="message-input" value="Viktor Ahmeti sent a message" type="text">
+            </div>
+            <div>
+                <div class="backgrounds-component-top">
+                    <h4 class="backgrounds-component-title">Background</h4>
+                    <button title="Add new background" id="add-new-background-button" class="add-new-button">+</button>
+                </div>
+                <div id="backgrounds-component">
+                </div>
+            </div>
+            <button id="fullscreen-button">Preview</button>
+        </div>
+    </div>
+
+    <div id="modal-container" class="modal-wrapper">
+        <div class="modal">
+            <h4 class="modal-title">Edit App</h4>
+            <span id="close-modal-button" class="material-symbols-outlined close-modal">close</span>
+            <div id="app-modal-component">
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/index.js" type="module"></script>
+</body>
+</html>
