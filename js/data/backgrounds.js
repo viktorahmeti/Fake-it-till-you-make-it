@@ -44,7 +44,7 @@ export function getBackground(id){
 }
 
 export function createBackground(imageData){
-    backgrounds.push({
+    backgrounds.unshift({
         id: Math.floor(Math.random() * 1000000),
         location: imageData,
         selected: false
