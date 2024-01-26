@@ -250,9 +250,11 @@ body{
     height: 95vh;
     aspect-ratio: 9/19.5;
     --baseSize: 19px;
-    user-select: none;
-    -webkit-user-select: none;
     -webkit-user-drag: none;
+}
+
+.phone *{
+    outline: none !important;
 }
 
 .phone{

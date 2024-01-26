@@ -172,9 +172,10 @@ function deleteNotification(){
 }
 
 function shouldIgnoreEvent(event) {
-    const ignoredElements = ['INPUT', 'TEXTAREA'];
-  
-    if (event.target.tagName && ignoredElements.includes(event.target.tagName.toUpperCase())) {
+    if (event.target.tagName && 
+        (event.target.tagName === 'INPUT' ||
+         event.target.tagName === 'TEXTAREA' ||
+         event.target.getAttribute('contenteditable') === 'true')) {
       return true;
     }
   
