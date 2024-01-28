@@ -10,41 +10,49 @@ export function init(){
         {
             id: 1,
             name: "Instagram",
-            canModify: false,
+            default: true,
             icon: "./social-icons/instagram.png",
             selected: true
         },
         {
             id: 2,
             selected: false,
-            canModify: false,
+            default: true,
             name: "Facebook",
             icon: "./social-icons/facebook.png"
         },
         {
             id: 3,
             name: "WhatsApp",
-            canModify: false,
+            default: true,
             selected: false,
             icon: "./social-icons/whatsapp.png"
         },
         {
             id: 4,
             name: "Snapchat",
-            canModify: false,
+            default: true,
             selected: false,
             icon: "./social-icons/snapchat.jpg"
         },
         {
             id: 5,
             name: "Messages",
-            canModify: false,
+            default: true,
             selected: false,
             icon: "./social-icons/messages.png"
+        },
+        {
+            id: 6,
+            name: "PayPal",
+            default: true,
+            selected: false,
+            icon: "./social-icons/paypal.jpg"
         }
     ];
     
     let userApps = Utils.getObjectFromLocalStorage('apps');
+    
     if(!userApps || userApps.length == 0){
         apps = defaultApps;
         persistAppsToLocalStorage();
@@ -95,7 +103,6 @@ export function createApp(newName, newIcon){
         id: Math.floor(Math.random() * 1000000),
         name: newName,
         icon: newIcon,
-        canModify: true,
         selected: false
     }
 
@@ -106,9 +113,10 @@ export function createApp(newName, newIcon){
 }
 
 export function editApp(id, newName, newIcon){
-    apps = apps.map(app => app.id == id && app.canModify ? { ...app, name: newName, icon: newIcon } : app);
+    apps = apps.map(app => app.id == id && !app.default ? { ...app, name: newName, icon: newIcon } : app);
     persistAppsToLocalStorage();
     
+    updateState();
     setSelectedApp(id);
 }
 
@@ -127,7 +135,7 @@ export function deleteApp(id){
             wasSelected = true;
         }
         
-        return !toDelete || !app.canModify;
+        return !toDelete || app.default;
     });
 
     if(wasSelected){

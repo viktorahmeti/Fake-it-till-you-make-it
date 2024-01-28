@@ -89,7 +89,7 @@ function createAppComponent(app){
     el.appendChild(appImage);
     el.appendChild(title);
 
-    if(app.canModify)
+    if(!app.default)
         el.appendChild(editButton);
 
     if(app.selected)
