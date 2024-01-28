@@ -1,4 +1,5 @@
 import * as AppsData from '../data/apps.js';
+import * as Utils from '../utils/utils.js';
 
 let root = document.getElementById('app-modal-component');
 
@@ -52,7 +53,7 @@ function createModal(id){
     }
 
     imagePicker.onclick = async function(){
-        let base64Url = await triggerImageSelection();
+        let base64Url = await Utils.triggerImageSelection(false);
 
         if(!base64Url)
             return;
@@ -124,41 +125,6 @@ function onSave(id, name, icon){
     }
 
     closeModal();
-}
-
-async function triggerImageSelection(){
-    let selectionConfig = {
-        types: [
-            {
-              description: "Images",
-              accept: {
-                "image/*": [".png", ".gif", ".jpeg", ".jpg"],
-              },
-            },
-          ],
-          excludeAcceptAllOption: true,
-          multiple: false
-    }
-
-    return showOpenFilePicker(selectionConfig)
-    .then(([fileHandle]) => {
-        return fileHandle.getFile();
-    })
-    .then((file) => {
-        const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-
-        return new Promise((resolve, reject) => {
-            reader.onload = function (e) {
-                resolve(e.target.result);
-            };
-        });
-    })
-    .catch((e) => {
-        alert('Couldn\'t select an image');
-        return null;
-    });
 }
 
 function createImagePreview(src){

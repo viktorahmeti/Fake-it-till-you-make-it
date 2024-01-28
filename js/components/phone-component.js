@@ -1,10 +1,7 @@
 import * as AppsData from '../data/apps.js';
 import * as BackgroundsData from '../data/backgrounds.js';
 import * as MessageData from '../data/message.js';
-
-let currentApp;
-let currentBackground;
-let currentMessage;
+import * as Utils from '../utils/utils.js';
 
 let root = document.getElementById('phone-component');
 let notificationsList = root.querySelector('.notifications-list');
@@ -14,12 +11,12 @@ let fullscreenButton = document.getElementById('fullscreen-button');
 let exitFullscreenButton = document.getElementById('exit-fullscreen-button');
 let flashlight = document.getElementById('flashlight');
 let camera = document.getElementById('camera');
-let touchDevice = isTouchDevice();
+let touchDevice = Utils.isTouchDevice();
 let introTutorialPlayed = false;
 let fullscreenTutorialPlayed = false;
 
-dateElement.textContent = getFormattedDate();
-timeElement.textContent = getFormattedTime();
+dateElement.textContent = Utils.getFormattedDate();
+timeElement.textContent = Utils.getFormattedTime();
 adjustPhoneElements();
 
 document.addEventListener('keydown', onKeyPress);
@@ -29,7 +26,7 @@ flashlight.addEventListener('click', (event) => {
 });
 camera.addEventListener('click', (event) => {
     event.preventDefault();
-    pushNotification();
+    pushNotification(MessageData.getMessage(), AppsData.getSelectedApp());
 });
 flashlight.addEventListener('dblclick', (event) => event.preventDefault());
 camera.addEventListener('dblclick', (event) => event.preventDefault());
@@ -41,36 +38,29 @@ window.addEventListener('load', playTutorial);
 document.addEventListener('fullscreenchange', fixScroll);
 
 export function init(){
-    currentApp = AppsData.getSelectedApp();
-    currentBackground = BackgroundsData.getSelectedBackground();
-    currentMessage = MessageData.getMessage();
-
-    AppsData.subscribe(() => {
-        currentApp = AppsData.getSelectedApp();
-    });
-
     BackgroundsData.subscribe(() => {
-        currentBackground = BackgroundsData.getSelectedBackground();
         updateState();
-    });
-
-    MessageData.subscribe((message) => {
-        currentMessage = message;
     });
 
     updateState();
 }
 
 function updateState(){
-    root.style.backgroundImage = `url(${currentBackground.location})`;
+    root.style.backgroundImage = `url(${BackgroundsData.getSelectedBackground().location})`;
 }
 
 async function playTutorial(){
     if(introTutorialPlayed)
         return;
 
-    await pushAfter(0, touchDevice? 'Press *Flashlight* to delete notifications' : 'Type \'Backspace\' to delete notifications');
-    await pushAfter(1000, touchDevice? 'Press *Camera* to create notifications' : 'Type \'Space\' to create notifications');
+    await Utils.timeout(0, () => {
+        pushNotification(touchDevice? 'Press *Flashlight* to delete notifications' : 'Type \'Backspace\' to delete notifications', AppsData.getSelectedApp());
+    });
+
+    await Utils.timeout(1000, () => {
+        pushNotification(touchDevice? 'Press *Camera* to create notifications' : 'Type \'Space\' to create notifications', AppsData.getSelectedApp());
+    });
+
     introTutorialPlayed = true;
 }
 
@@ -78,21 +68,14 @@ async function playFullscreenTutorial(){
     if(fullscreenTutorialPlayed)
         return;
 
-    await pushAfter(500, 'Press X button to exit fullscreen');
+    await Utils.timeout(500, () => {
+        pushNotification('Press X button to exit fullscreen', AppsData.getSelectedApp());
+    });
 
     fullscreenTutorialPlayed = true;
 }
 
-async function pushAfter(milliseconds, message){
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            pushNotification(message);
-            resolve();
-        }, milliseconds);
-    })
-}
-
-function createNewNotification(message = currentMessage){
+function createNewNotification(message, app){
     let el = document.createElement('li');
     el.classList.add('notification');
 
@@ -100,14 +83,14 @@ function createNewNotification(message = currentMessage){
     container.classList.add('notification-container', 'translucent');
 
     let appImage = document.createElement('img');
-    appImage.src = currentApp.icon;
+    appImage.src = app.icon;
     appImage.classList.add('notification-app-img');
 
     let notificationRightSide = document.createElement('div');
     notificationRightSide.classList.add('notification-right');
 
     let appName = document.createElement('span');
-    appName.textContent = currentApp.name;
+    appName.textContent = app.name;
     appName.classList.add('phone-app-name');
 
     let messageElement = document.createElement('span');
@@ -126,25 +109,27 @@ function createNewNotification(message = currentMessage){
 }
 
 function onKeyPress(event){
-    if(shouldIgnoreEvent(event))
+    if(Utils.shouldIgnoreKeypress(event))
         return;
 
     let key = event.key;
+
+    let currentMessage = MessageData.getMessage();
 
     if(key === ' '){
         if(!currentMessage){
             alert('Please provide a notification message!');
             return;
         }
-        pushNotification();
+        pushNotification(currentMessage, AppsData.getSelectedApp());
     }
     else if(key === "Backspace"){
         deleteNotification();
     }
 }
 
-function pushNotification (message = currentMessage) {
-    let notification = createNewNotification(message);
+function pushNotification (message, app) {
+    let notification = createNewNotification(message, app);
     notification.classList.add('close');
     notification.classList.add('optimize');
 	notificationsList.insertAdjacentElement('afterBegin', notification)
@@ -171,24 +156,13 @@ function deleteNotification(){
     }, 875);
 }
 
-function shouldIgnoreEvent(event) {
-    if (event.target.tagName && 
-        (event.target.tagName === 'INPUT' ||
-         event.target.tagName === 'TEXTAREA' ||
-         event.target.getAttribute('contenteditable') === 'true')) {
-      return true;
-    }
-  
-    return false;
-}
-
 function adjustPhoneElements(){
     let ratio = 16 * root.getBoundingClientRect().width / 300;
     root.style.setProperty('--baseSize', `${ratio}px`);
 }
 
 async function enterFullscreen(){
-    if(!currentMessage){
+    if(!MessageData.getMessage()){
         alert('Please provide a notification message!');
         return;
     }
@@ -215,27 +189,9 @@ async function exitFullscreen(){
     document.body.classList.remove('noscroll');
 }
 
-function isTouchDevice() {
-    return (('ontouchstart' in window) ||
-       (navigator.maxTouchPoints > 0) ||
-       (navigator.msMaxTouchPoints > 0));
-}
-
 function fixScroll(){
     if(document.fullscreenElement)
         document.body.classList.add('noscroll');
     else
         document.body.classList.remove('noscroll');
-}
-
-function getFormattedDate() {
-    const options = { weekday: 'long', month: 'long', day: 'numeric' };
-    const currentDate = new Date();
-    return currentDate.toLocaleDateString('en-US', options);
-}
-
-function getFormattedTime() {
-    const options = { hour: '2-digit', minute: '2-digit', hour12: false };
-    const currentTime = new Date();
-    return currentTime.toLocaleTimeString('en-US', options);
 }

@@ -1,4 +1,5 @@
 import * as AppsComponent from '../components/apps-component.js';
+import * as Utils from '../utils/utils.js';
 
 let apps;
 let subscribers = [];
@@ -28,7 +29,7 @@ export function init(){
         }
     ];
     
-    let userApps = getAppsFromLocalStorage();
+    let userApps = Utils.getObjectFromLocalStorage('apps');
     if(!userApps || userApps.length == 0){
         apps = defaultApps;
         persistAppsToLocalStorage();
@@ -45,18 +46,13 @@ export function subscribe(callback){
 }
 
 function updateState(){
-    persistAppsToLocalStorage();
     subscribers.forEach((sub) => {
         sub(apps);
     });
 }
 
-function getAppsFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("apps"));
-}
-
 function persistAppsToLocalStorage() {
-    localStorage.setItem("apps", JSON.stringify(apps));
+    Utils.persistObjectToLocalStorage('apps', apps);
 }
 
 export function getAllApps() {
@@ -78,11 +74,15 @@ export function createApp(newName, newIcon){
     }
 
     apps.push(app);
+    persistAppsToLocalStorage();
+    
     updateState();
 }
 
 export function editApp(id, newName, newIcon){
     apps = apps.map(app => app.id == id && app.canModify ? { ...app, name: newName, icon: newIcon } : app);
+    persistAppsToLocalStorage();
+    
     updateState();
 }
 
@@ -108,6 +108,8 @@ export function deleteApp(id){
         apps[0].selected = true;
     }
 
+    persistAppsToLocalStorage();
+
     updateState();
 }
 
@@ -129,6 +131,7 @@ export function setSelectedApp(id){
         currentSelectedApp.selected = false;
 
     apps = apps.map(app => app.id == id ? { ...app, selected: true } : app);
-    
+    persistAppsToLocalStorage();
+
     updateState();
 }
