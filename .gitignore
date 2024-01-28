@@ -29,9 +29,12 @@
 *.sub
 *.idx
 *.nfo
+*.gif
 
 # Ignore temporary video files
 *.part
 *.partial
 *.temp
 *.tmp
+
+.DS_Store
