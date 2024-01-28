@@ -101,15 +101,15 @@ export function createApp(newName, newIcon){
 
     apps.push(app);
     persistAppsToLocalStorage();
-    
-    updateState();
+
+    setSelectedApp(app.id);
 }
 
 export function editApp(id, newName, newIcon){
     apps = apps.map(app => app.id == id && app.canModify ? { ...app, name: newName, icon: newIcon } : app);
     persistAppsToLocalStorage();
     
-    updateState();
+    setSelectedApp(id);
 }
 
 export function deleteApp(id){
@@ -156,7 +156,7 @@ export function setSelectedApp(id){
 
     if(currentSelectedApp.id == id)
         return;
-    
+
     if(currentSelectedApp)
         currentSelectedApp.selected = false;
 
