@@ -54,11 +54,11 @@ async function playTutorial(){
         return;
 
     await Utils.timeout(0, () => {
-        pushNotification(touchDevice? 'Press *Flashlight* to delete notifications' : 'Type \'Backspace\' to delete notifications', AppsData.getSelectedApp());
+        pushNotification(touchDevice? 'Press *Flashlight* to delete notifications' : 'Type \'Backspace\' to delete notifications', AppsData.getSystemApp());
     });
 
     await Utils.timeout(1000, () => {
-        pushNotification(touchDevice? 'Press *Camera* to create notifications' : 'Type \'Space\' to create notifications', AppsData.getSelectedApp());
+        pushNotification(touchDevice? 'Press *Camera* to create notifications' : 'Type \'Space\' to create notifications', AppsData.getSystemApp());
     });
 
     introTutorialPlayed = true;
@@ -69,7 +69,7 @@ async function playFullscreenTutorial(){
         return;
 
     await Utils.timeout(500, () => {
-        pushNotification('Press X button to exit fullscreen', AppsData.getSelectedApp());
+        pushNotification('Press X button to exit fullscreen', AppsData.getSystemApp());
     });
 
     fullscreenTutorialPlayed = true;
