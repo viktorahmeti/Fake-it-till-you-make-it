@@ -524,11 +524,10 @@ body{
 }
 
 #me{
-    position: absolute;
     font-size: 0.9rem;
     font-weight: 500;
-    bottom: 0.1rem;
-    right: 10px;
+    text-align: right;
+    margin-top: auto;
 }
 
 #me a{
@@ -536,8 +535,8 @@ body{
     text-decoration: none;
 }
 
-.fullscreen #me, .fullscreen #page-header, :fullscreen #me, :fullscreen #page-header{
-    color: white;
+.fullscreen #me, .fullscreen #main-page-header, :fullscreen #me, :fullscreen #main-page-header{
+    display: none;
 }
 
 
@@ -561,10 +560,6 @@ body{
     #phone-component{
         height: 90vh;
         height: 95svh;
-    }
-
-    #me{
-        display: none;
     }
 
     #main-page-header{
