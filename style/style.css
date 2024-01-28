@@ -114,6 +114,12 @@ body{
     margin-left: auto;
     font-size: 1.5rem;
     cursor: pointer;
+    transform: rotate(180deg);
+    transition: transform .5s ease;
+}
+
+.collapsed .app-component-dropdown{
+    transform: rotate(0);
 }
 
 .modal-wrapper{

@@ -120,6 +120,7 @@ function toggle(){
 }
 
 function collapse(){
+    root.classList.add('collapsed');
     Array.from(root.querySelectorAll('.app-component'))
     .slice(1)
     .forEach(el => el.classList.add('collapsed'));
@@ -129,7 +130,7 @@ function collapse(){
 }
 
 function open(){
-    console.log(root.querySelectorAll('.app-component'))
+    root.classList.remove('collapsed');
     Array.from(root.querySelectorAll('.app-component'))
     .forEach(el => el.classList.remove('collapsed'));
 
