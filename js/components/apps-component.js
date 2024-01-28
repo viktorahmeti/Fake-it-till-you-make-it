@@ -2,6 +2,7 @@ import * as AppsData from '../data/apps.js';
 import * as Modal from './app-modal-component.js';
 
 let root = document.getElementById('apps-component');
+let collapsed = true;
 
 export function init(){
     AppsData.init();
@@ -12,7 +13,18 @@ export function init(){
 
 //redraws the apps - not very efficient
 export function updateState(apps){
-    //draw the apps on the screen using getAppComponent
+    apps = apps.sort((b, a) => {
+        if(a.selected)
+            return 1;
+        else if(b.selected)
+            return -1;
+        else{
+            return parseInt(b.id - a.id);
+        }
+    });
+
+    collapse();
+
     let list = document.createElement('ul');
     list.classList.add('apps-component-list');
 
@@ -47,12 +59,24 @@ function createAppComponent(app){
     editButton.textContent = 'edit';
     editButton.title = 'Edit'
 
+
+    let dropdownButton;
+
     if(app.selected){
         el.classList.add('selected');
+
+        dropdownButton = document.createElement('span');
+        dropdownButton.classList.add('app-component-dropdown', 'material-symbols-outlined');
+        dropdownButton.textContent = 'expand_more';
+        dropdownButton.addEventListener('click', toggle);
+    }
+    else{
+        el.classList.add('collapsed');
     }
 
     el.onclick = function(event){
-        if(event.target.classList.contains('app-component-edit'))
+        if(event.target.classList.contains('app-component-edit') ||
+        event.target.classList.contains('app-component-dropdown'))
             return;
 
         onSelect(this.id);
@@ -68,6 +92,9 @@ function createAppComponent(app){
     if(app.canModify)
         el.appendChild(editButton);
 
+    if(app.selected)
+        el.appendChild(dropdownButton);
+
     return el;
 }
 
@@ -81,5 +108,29 @@ function onNew(){
 
 function onSelect(id){
     AppsData.setSelectedApp(id);
+}
+
+function toggle(){
+    if(collapsed)
+        open();
+    else
+        collapse();
+}
+
+function collapse(){
+    Array.from(root.querySelectorAll('.app-component'))
+    .slice(1)
+    .forEach(el => el.classList.add('collapsed'));
+
+    collapsed = true;
+
+}
+
+function open(){
+    console.log(root.querySelectorAll('.app-component'))
+    Array.from(root.querySelectorAll('.app-component'))
+    .forEach(el => el.classList.remove('collapsed'));
+
+    collapsed = false;
 }
 

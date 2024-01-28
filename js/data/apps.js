@@ -153,6 +153,10 @@ export function getSelectedApp(){
 
 export function setSelectedApp(id){
     let currentSelectedApp = apps.find(app => app.selected == true);
+
+    if(currentSelectedApp.id == id)
+        return;
+    
     if(currentSelectedApp)
         currentSelectedApp.selected = false;
 

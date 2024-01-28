@@ -49,8 +49,6 @@ body{
 .apps-component-list{
     list-style: none;
     padding-left: 0;
-    display: flex;
-    flex-direction: column;
     border-radius: 5px;
     border: 2px solid black;
     margin-block: 0;
@@ -60,18 +58,29 @@ body{
     display: flex;
     gap: 0.5rem;
     cursor: pointer;
-    padding: 0.5rem;
+    padding-block: 0.5rem;
+    padding-inline: 0.5rem;
     align-items: center;
     cursor: pointer;
+    overflow: hidden;
+    max-height: 3.2rem;
+    opacity: 1;
+    transition: all .5s ease;
 }
 
-.app-component.selected{
+.app-component.collapsed{
+    padding-block: 0;
+    max-height: 0;
+    opacity: 0;
+}
+
+.app-component:hover:not(.selected){
     background-color: rgb(198, 196, 196);
 }
 
 .app-component-image{
-    width: 30px;
-    height: 30px;
+    width: 2rem;
+    height: 2rem;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -79,10 +88,6 @@ body{
 .apps-component-title{
     margin: 0;
     margin-bottom: 0.3rem;
-}
-
-.app-component:not(:last-child){
-    border-bottom: 2px solid black;
 }
 
 .apps-component-top{
@@ -101,8 +106,13 @@ body{
 }
 
 .app-component-edit{
-    margin-left: auto;
     font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.app-component-dropdown{
+    margin-left: auto;
+    font-size: 1.5rem;
     cursor: pointer;
 }
 
