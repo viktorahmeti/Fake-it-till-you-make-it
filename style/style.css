@@ -496,13 +496,21 @@ body{
     padding-top: 1rem;
 }
 
-#page-header{
+#main-page-header{
     position: absolute;
     font-size: 1rem;
     left: 0.5rem;
     top: 0.5rem;
     margin: 0;
     z-index: 10;
+}
+
+#mobile-page-header{
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    display: none;
 }
 
 #me{
@@ -549,7 +557,11 @@ body{
         display: none;
     }
 
-    #page-header{
+    #main-page-header{
         display: none;
+    }
+
+    #mobile-page-header{
+        display: block;
     }
 }
