@@ -1,0 +1,37 @@
+# Ignore video files
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.flv
+*.webm
+*.ogg
+*.ogv
+*.mpeg
+*.mpg
+*.m4v
+*.3gp
+*.flv
+*.swf
+*.vob
+*.ts
+*.mts
+*.m2ts
+*.mxf
+*.divx
+*.f4v
+*.rm
+*.rmvb
+*.ogm
+*.ass
+*.srt
+*.sub
+*.idx
+*.nfo
+
+# Ignore temporary video files
+*.part
+*.partial
+*.temp
+*.tmp
