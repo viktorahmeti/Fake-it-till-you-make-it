@@ -78,8 +78,10 @@ function createAppComponent(app){
         if(event.target.classList.contains('app-component-edit') ||
         event.target.classList.contains('app-component-dropdown'))
             return;
-
-        onSelect(this.id);
+        else if(el.classList.contains('selected'))
+            toggle();
+        else
+            onSelect(this.id);
     };
 
     editButton.onclick = function(){
