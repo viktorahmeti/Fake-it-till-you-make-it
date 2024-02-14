@@ -26,6 +26,9 @@ const APP_STATIC_RESOURCES = [
     "../social-icons/snapchat.jpg",
     "../social-icons/system.png",
     "../social-icons/whatsapp.png",
+    "../social-icons/stripe.png",
+    "../social-icons/shopify.png",
+    "../social-icons/gumroad.png",
     "./android-chrome-192x192.png",
     "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 ];

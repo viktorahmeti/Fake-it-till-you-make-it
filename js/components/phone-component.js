@@ -157,7 +157,7 @@ function deleteNotification(){
 }
 
 function adjustPhoneElements(){
-    let ratio = 16 * root.getBoundingClientRect().width / 300;
+    let ratio = 16 * root.getBoundingClientRect().width / 315;
     root.style.setProperty('--baseSize', `${ratio}px`);
 }
 

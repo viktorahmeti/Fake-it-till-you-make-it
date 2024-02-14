@@ -48,17 +48,38 @@ export function init(){
             default: true,
             selected: false,
             icon: "./social-icons/paypal.jpg"
+        },
+        {
+            id: 7,
+            name: "Stripe",
+            default: true,
+            selected: false,
+            icon: "./social-icons/stripe.png"
+        },
+        {
+            id: 8,
+            name: "Shopify",
+            default: true,
+            selected: false,
+            icon: "./social-icons/shopify.png"
+        },
+        {
+            id: 9,
+            name: "Gumroad",
+            default: true,
+            selected: false,
+            icon: "./social-icons/gumroad.png"
         }
     ];
     
     let userApps = Utils.getObjectFromLocalStorage('apps');
     
-    if(!userApps || userApps.length == 0){
+    if(!userApps || userApps.length == 0 || !userApps.some(el => el.default)){
         apps = defaultApps;
         persistAppsToLocalStorage();
     }
     else{
-        apps = userApps;
+        apps = defaultApps.concat(userApps.filter(e => !e.default));
     }
 
     systemApp = {
