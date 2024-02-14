@@ -596,13 +596,12 @@ body{
 @media all and (display-mode: standalone) {
     @media screen and (max-width: 450px){
         .left.fullscreen{
-            height: unset;
+            height: unset !important;
             position: absolute !important;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: black;
             display: block !important;
             padding-top: unset !important;
         }
@@ -627,6 +626,14 @@ body{
     
         .phone-bottom::after{
             display: none !important;
+        }
+
+        body{
+            padding: 0;
+        }
+
+        html{
+            padding: 0;
         }
     }
 }
