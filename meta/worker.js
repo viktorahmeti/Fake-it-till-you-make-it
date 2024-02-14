@@ -1,4 +1,4 @@
-const VERSION = "v1.1";
+const VERSION = "v1.1.1";
 const CACHE_NAME = `wishful-cache-${VERSION}`;
 
 const APP_STATIC_RESOURCES = [
