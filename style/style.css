@@ -602,13 +602,14 @@ body{
             right: 0;
             bottom: 0;
             background-color: black;
-            display: block;
+            display: block !important;
+            padding-top: unset !important;
         }
-
+    
         .phone-top{
             visibility: hidden;
         }
-
+    
         #phone-component{
             height: 100%;
             width: 100%;
@@ -616,7 +617,7 @@ body{
             aspect-ratio: unset;
             background-size: cover;
         }
-
+    
         .content-container{
             height: 100% !important;
         }
