@@ -14,17 +14,31 @@
     box-sizing: border-box;
 }
 
-body{
-    margin: 0;
+html{
+    min-height: calc(100% + env(safe-area-inset-top));
     background-color: #edebeb;
+}
+
+body{
+    position: absolute;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    inset: 0;
+    margin: 0;
     font-family: 'San Francisco Display';
+}
+
+@media all and (display-mode: standalone) {
+    body{
+        padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+    }
 }
 
 .content-container{
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr min(300px, 100%);
+    position: relative;
 }
 
 .left, .right{
@@ -574,5 +588,32 @@ body{
 
     #mobile-page-header{
         display: block;
+    }
+}
+
+@media all and (display-mode: standalone) {
+    @media screen and (max-width: 450px){
+        .left.fullscreen{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: black;
+            display: grid !important;
+            place-content: unset;
+            justify-content: center;
+        }
+
+        .phone-top{
+            visibility: hidden;
+        }
+
+        #phone-component{
+            height: 100%;
+            width: 100%;
+            border-radius: unset !important;
+            aspect-ratio: unset;
+        }
     }
 }
