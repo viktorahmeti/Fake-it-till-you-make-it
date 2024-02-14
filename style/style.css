@@ -594,7 +594,7 @@ body{
 }
 
 @media all and (display-mode: standalone) {
-    @media screen and (max-width: 450px){
+    /* @media screen and (max-width: 450px){
         .left.fullscreen{
             height: unset !important;
             position: absolute !important;
@@ -635,5 +635,49 @@ body{
         html{
             padding: 0;
         }
+    } */
+}
+
+@media screen and (max-width: 450px){
+    .left.fullscreen{
+        height: unset !important;
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: block !important;
+        padding-top: unset !important;
+    }
+
+    .phone-top{
+        visibility: hidden;
+    }
+
+    #phone-component{
+        height: 100%;
+        width: 100%;
+        border-radius: unset !important;
+        aspect-ratio: unset;
+        background-size: cover;
+    }
+
+    .content-container{
+        height: unset !important;
+        position: absolute !important;
+        inset: 0;
+    }
+
+    .phone-bottom::after{
+        display: none !important;
+    }
+
+    body{
+        padding: 0;
+    }
+
+    html{
+        padding: 0;
+        position: relative;
     }
 }
