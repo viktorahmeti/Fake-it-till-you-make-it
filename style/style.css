@@ -145,6 +145,7 @@ body{
     display: grid;
     place-content: center;
     display: none;
+    z-index: 20;
 }
 
 .modal-wrapper.show{

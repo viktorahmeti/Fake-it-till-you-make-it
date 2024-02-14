@@ -80,6 +80,9 @@ export function init(){
     }
     else{
         apps = defaultApps.concat(userApps.filter(e => !e.default));
+        apps.forEach(el => el.selected = false);
+        apps[0].selected = true;
+        persistAppsToLocalStorage();
     }
 
     systemApp = {
