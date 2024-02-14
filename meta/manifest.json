@@ -4,6 +4,7 @@
     "description": "Creating IOS notifications has never been easier. Fully customizable apps, text, and iPhone background!",
     "start_url": "../",
     "display": "standalone",
+    "orientation": "portrait",
     "theme_color": "#edebeb",
     "background_color": "#edebeb",
     "screenshots": [
