@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1, viewport-fit=cover, width=device-width"></meta>
+    <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></meta>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="./style/style.css">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="./meta/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./meta/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./meta/favicon-16x16.png">
-    <link rel="manifest" href="./meta/site.webmanifest">
-    <link rel="mask-icon" href="./meta/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="180x180" href="./meta/ios/180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./meta/ios/32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./meta/ios/16.png">
+    <link rel="manifest" href="./meta/manifest.json">
+    <meta name="theme-color" content="#edebeb">
     <meta name="description" content="Creating IOS notifications has never been easier. Fully customizable apps, text, and iPhone background!">
     <meta property="og:url" content="https://viktorahmeti.github.io/Wishful-Thinking/">
     <meta property="og:type" content="website">
@@ -95,5 +95,20 @@
     </div>
 
     <script src="./js/index.js" type="module"></script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("meta/worker.js").then(
+                (registration) => {
+                console.log("Service worker registration successful:", registration);
+                },
+                (error) => {
+                console.error(`Service worker registration failed: ${error}`);
+                },
+            );
+        } else {
+            console.error("Service workers are not supported.");
+        }
+    </script>
 </body>
 </html>
