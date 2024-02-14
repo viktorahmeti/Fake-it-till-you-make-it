@@ -29,7 +29,7 @@ body{
 
 @media all and (display-mode: standalone) {
     body{
-        padding: env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);
+        padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
     }
 }
 
@@ -281,6 +281,7 @@ body{
     aspect-ratio: 9/19.5;
     --baseSize: 19px;
     -webkit-user-drag: none;
+    z-index: 10;
 }
 
 .phone *{
@@ -594,15 +595,14 @@ body{
 @media all and (display-mode: standalone) {
     @media screen and (max-width: 450px){
         .left.fullscreen{
+            height: unset;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             background-color: black;
-            display: grid !important;
-            place-content: unset;
-            justify-content: center;
+            display: block;
         }
 
         .phone-top{
