@@ -50,6 +50,7 @@ body{
     display: grid;
     place-content: center;
     position: relative;
+    z-index: 10;
 }
 
 .right{
@@ -596,7 +597,7 @@ body{
     @media screen and (max-width: 450px){
         .left.fullscreen{
             height: unset;
-            position: absolute;
+            position: absolute !important;
             top: 0;
             left: 0;
             right: 0;
@@ -619,7 +620,13 @@ body{
         }
     
         .content-container{
-            height: 100% !important;
+            height: unset !important;
+            position: absolute !important;
+            inset: 0;
+        }
+    
+        .phone-bottom::after{
+            display: none !important;
         }
     }
 }
