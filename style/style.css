@@ -319,11 +319,11 @@ body{
     -webkit-user-select: none;
     -webkit-tap-highlight-color:transparent;
     outline-style:none;
-    margin-right: 5px;
-}
-
-.top-icon:last-child{
-    margin-right: 0;
+    margin-right: 2px;
+    width: calc(0.9 * var(--baseSize));
+    height: calc(0.9 * var(--baseSize));
+    fill: currentColor;
+    overflow: hidden;
 }
 
 .phone-date{
@@ -393,6 +393,11 @@ body{
     -webkit-user-select: none;
     -webkit-tap-highlight-color:transparent;
     outline-style:none;
+    box-sizing: content-box;
+    width: calc(1.4 * var(--baseSize));
+    height: calc(1.4 * var(--baseSize));
+    fill: currentColor;
+    overflow: hidden;
 }
 
 .noscroll{
@@ -423,6 +428,7 @@ body{
     box-shadow: 0 10px 15px rgb(0 0 0 / 20%);
     background-blend-mode: overlay;
     backdrop-filter: blur(33px);
+    -webkit-backdrop-filter: blur(33px);
 }
 
 .notifications-list{
