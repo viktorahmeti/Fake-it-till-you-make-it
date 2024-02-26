@@ -80,7 +80,13 @@ function createNewNotification(message, app){
     el.classList.add('notification');
 
     let container = document.createElement('div');
-    container.classList.add('notification-container', 'translucent');
+
+    if(/^((?!chrome|android).)*safari/i.test(navigator.userAgent)){
+        container.classList.add('notification-container', 'translucent-true');
+    }
+    else{
+        container.classList.add('notification-container', 'translucent');
+    }
 
     let appImage = document.createElement('img');
     appImage.src = app.icon;

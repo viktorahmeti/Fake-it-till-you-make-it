@@ -424,7 +424,7 @@ body{
 }
 
 .translucent-true{
-    background-color: #2f2f2f7d;
+    background-color: #2f2f2fa3;
     box-shadow: 0 10px 15px rgb(0 0 0 / 20%);
     background-blend-mode: overlay;
     backdrop-filter: blur(33px);
